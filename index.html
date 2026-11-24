@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d0d0f">
+  <title>HOPE v4.1 — Premium Gaming Universe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="logo">H<span>O</span>PE<span class="dot">.</span></div>
+    <p class="nav-label">MENU</p>
+    <nav>
+      <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+      <button class="nav-item" data-page="library"><span>▣</span> My Library</button>
+      <button class="nav-item" data-page="arcade"><span>◈</span> Arcade</button>
+      <button class="nav-item" data-page="achievements"><span>♛</span> Achievements</button>
+      <button class="nav-item" data-page="statistics"><span>▥</span> Statistics</button>
+      <button class="nav-item" data-page="daily"><span>✦</span> Daily</button>
+      <button class="nav-item" data-page="player"><span>◉</span> Player Profile</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="profile profile-button" onclick="editProfile()" title="Edit player profile">
+        <div class="avatar" id="profile-avatar">A</div>
+        <div class="profile-copy"><strong id="profile-name">Player One</strong><small id="profile-bio">Your gaming space</small><small id="profile-level">Level 01 · 0 XP</small><div class="xp-mini"><span id="xp-mini-fill"></span></div></div>
+        <span class="profile-edit">⚙</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><span class="status-dot"></span><span class="status-text">YOUR GAMING SPACE</span></div>
+      <div class="top-right"><span id="live-clock">--:--</span><span class="top-divider">/</span> HOPE v4.1 <button class="settings-trigger" onclick="openSettings()" aria-label="Open settings">⚙</button></div>
+    </header>
+
+    <section class="page active" id="dashboard">
+      <div class="welcome">
+        <p class="eyebrow">YOUR PERSONAL SPACE</p>
+        <h1 id="greeting">Welcome back.</h1>
+        <p class="subtitle">Take a break. Find your next adventure.</p>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card"><span>GAMES IN LIBRARY</span><h2 id="game-count">0</h2><small>Ready when you are</small></div>
+        <div class="stat-card"><span>GAMES PLAYED</span><h2 id="played-count">0</h2><small>Your arcade sessions</small></div>
+        <div class="stat-card"><span>BEST ARCADE SCORE</span><h2 id="best-score">0</h2><small>Your personal record</small></div>
+      </div>
+
+      <div class="continue-panel" id="continue-panel">
+        <div class="continue-copy"><span class="eyebrow">YOUR NEXT SESSION</span><h2 id="continue-title">Your next adventure starts here.</h2><p id="continue-description">Choose a game from your collection and make it yours.</p><button class="text-btn" id="continue-action" onclick="navigate('library')">Explore your library <span>↗</span></button></div>
+        <div class="continue-art"><span class="continue-orbit orbit-a"></span><span class="continue-orbit orbit-b"></span><span class="continue-symbol">✦</span><span class="continue-caption">HOPE / PLAYER SPACE</span></div>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">PICK YOUR EXPERIENCE</p><h2>Explore HOPE</h2></div></div>
+      <div class="featured-grid">
+        <div class="feature-card purple-card">
+          <div class="feature-content"><span class="tag">01 / ARCADE</span><h2>Play something<br>different.</h2><p>Small games. Big distractions.</p><button class="primary-btn" onclick="navigate('arcade')">Explore Arcade →</button></div>
+          <div class="feature-symbol">✳</div>
+        </div>
+        <div class="feature-card dark-card">
+          <div class="feature-content"><span class="tag">02 / LIBRARY</span><h2>Your games.<br>Your world.</h2><p>Keep your favorite games close.</p><button class="secondary-btn" onclick="navigate('library')">Open Library →</button></div>
+          <div class="feature-symbol">◈</div>
+        </div>
+      </div>
+
+      <div class="section-heading"><div><p class="eyebrow">QUICK ACCESS</p><h2>Recently added</h2></div><button class="text-btn" onclick="navigate('library')">View library →</button></div>
+      <div class="game-grid" id="recent-games"></div>
+
+      <div class="hope-quote" id="hope-quote"><span>✦ TODAY'S REMINDER</span><strong>Every session is a fresh start.</strong><small>Your space. Your pace. Your next chapter.</small></div>
+      <div class="section-heading"><div><p class="eyebrow">YOUR PROGRESS</p><h2>Achievement snapshot</h2></div><button class="text-btn" onclick="navigate('achievements')">View all →</button></div>
+      <div class="achievement-strip" id="dashboard-achievements"></div>
+    </section>
+
+    <section class="page" id="library">
+      <div class="welcome"><p class="eyebrow">YOUR COLLECTION</p><h1>My Library.</h1><p class="subtitle">All your favorite games in one place.</p></div>
+      <div class="library-toolbar"><div class="search-wrap"><span>⌕</span><input id="library-search" type="search" placeholder="Search games..." autocomplete="off"></div><span class="library-count" id="library-count">3 GAMES</span></div>
+      <div class="library-actions">
+        <div class="filter-pills">
+          <button class="filter-pill active" data-library-filter="all" onclick="setLibraryFilter('all')">All games</button>
+          <button class="filter-pill" data-library-filter="favorites" onclick="setLibraryFilter('favorites')">♥ Favorites</button>
+          <button class="filter-pill" data-library-filter="custom" onclick="setLibraryFilter('custom')">My additions</button>
+          <button class="filter-pill" data-library-filter="playing" onclick="setLibraryFilter('playing')">Playing</button>
+          <button class="filter-pill" data-library-filter="completed" onclick="setLibraryFilter('completed')">Completed</button>
+          <button class="filter-pill" data-library-filter="wishlist" onclick="setLibraryFilter('wishlist')">Wishlist</button>
+        </div>
+        <button class="primary-btn add-game-btn" onclick="toggleAddGame()">＋ Add a game</button>
+      </div>
+      <div class="add-game-panel" id="add-game-panel" hidden>
+        <div><p class="eyebrow">EXPAND YOUR COLLECTION</p><h3>Add to your library</h3></div>
+        <input id="custom-game-name" maxlength="36" placeholder="Game title">
+        <input id="custom-game-genre" maxlength="32" placeholder="Genre (e.g. RPG / Adventure)">
+        <textarea id="custom-game-note" maxlength="100" rows="2" placeholder="A short note (optional)"></textarea>
+        <div class="add-game-actions"><button class="primary-btn" onclick="addCustomGame()">Save game</button><button class="text-btn" onclick="toggleAddGame(false)">Cancel</button></div>
+        <p class="form-hint" id="add-game-message" aria-live="polite"></p>
+      </div>
+      <div class="game-grid" id="library-games"></div>
+      <p class="empty-state" id="empty-library" hidden>No games found. Try another search.</p>
+    </section>
+
+    <section class="page" id="arcade">
+      <div class="welcome"><p class="eyebrow">HOPE ARCADE</p><h1>Take a break.</h1><p class="subtitle">Forget everything. Just play.</p></div>
+      <div class="game-grid">
+        <div class="game-card"><div class="game-art art-one"><span>?</span><small>01</small></div><div class="game-info"><div class="game-category">LOGIC / SOLO</div><h3>Number Hunter</h3><p>Guess the hidden number.</p><button class="play-btn" onclick="openGame('number')">Play Now →</button></div></div>
+        <div class="game-card"><div class="game-art art-two"><span>▦</span><small>02</small></div><div class="game-info"><div class="game-category">MEMORY / SOLO</div><h3>Memory Match</h3><p>Test your memory.</p><button class="play-btn" onclick="openGame('memory')">Play Now →</button></div></div>
+        <div class="game-card"><div class="game-art art-three"><span>✕</span><small>03</small></div><div class="game-info"><div class="game-category">STRATEGY / VS CPU</div><h3>Tic Tac Toe</h3><p>A classic little challenge.</p><button class="play-btn" onclick="openGame('tictactoe')">Play Now →</button></div></div>
+        <div class="game-card"><div class="game-art art-four"><span>⚡</span><small>04</small></div><div class="game-info"><div class="game-category">REFLEX / SOLO</div><h3>Reaction Test</h3><p>How fast are your reflexes?</p><button class="play-btn" onclick="openGame('reaction')">Play Now →</button></div></div>
+        <div class="game-card"><div class="game-art art-custom"><span>∑</span><small>05</small></div><div class="game-info"><div class="game-category">MATH / SOLO</div><h3>Quick Math</h3><p>Solve as many quick equations as you can.</p><button class="play-btn" onclick="openGame('math')">Play Now →</button></div></div>
+        <div class="game-card"><div class="game-art art-word"><span>⌁</span><small>06</small></div><div class="game-info"><div class="game-category">WORD / SOLO</div><h3>Word Scramble</h3><p>Untangle the letters before your hints run out.</p><button class="play-btn" onclick="openGame('word')">Play Now →</button></div></div>
+        <div class="game-card"><div class="game-art art-rps"><span>✊</span><small>07</small></div><div class="game-info"><div class="game-category">CASUAL / VS CPU</div><h3>Rock Paper Scissors</h3><p>A quick classic. Can you beat the CPU?</p><button class="play-btn" onclick="openGame('rps')">Play Now →</button></div></div>
+        <div class="game-card"><div class="game-art art-2048"><span>2048</span><small>08</small></div><div class="game-info"><div class="game-category">PUZZLE / SOLO</div><h3>2048 Mini</h3><p>Combine tiles and reach the target number.</p><button class="play-btn" onclick="openGame('2048')">Play Now →</button></div></div>
+      </div>
+    </section>
+
+    <section class="page" id="achievements">
+      <div class="welcome"><p class="eyebrow">YOUR MILESTONES</p><h1>Achievements.</h1><p class="subtitle">Every little win counts. Keep going at your own pace.</p></div>
+      <div class="achievement-summary"><div><span class="eyebrow">UNLOCKED</span><h2 id="achievement-count">0 / 13</h2></div><div class="progress-track"><div id="achievement-progress"></div></div></div>
+      <div class="achievement-list" id="achievement-list"></div>
+    </section>
+
+    <section class="page" id="statistics">
+      <div class="welcome"><p class="eyebrow">YOUR JOURNEY</p><h1>Player statistics.</h1><p class="subtitle">Every session adds to your story.</p></div>
+      <div class="stats stats-expanded">
+        <div class="stat-card"><span>TOTAL XP</span><h2 id="stats-xp">0</h2><small>Experience earned</small></div>
+        <div class="stat-card"><span>PLAYER LEVEL</span><h2 id="stats-level">1</h2><small>Your current rank</small></div>
+        <div class="stat-card"><span>COMPLETED GAMES</span><h2 id="stats-completed">0</h2><small>Arcade victories</small></div>
+        <div class="stat-card"><span>FAVORITES</span><h2 id="stats-favorites">0</h2><small>Games you love</small></div>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">LAST 7 DAYS</p><h2>Activity overview</h2></div></div>
+      <div class="activity-panel" id="activity-chart"></div>
+      <div class="section-heading"><div><p class="eyebrow">PLAYER CARD</p><h2>Your identity</h2></div><button class="text-btn" onclick="editProfile()">Customize →</button></div>
+      <div class="player-card-panel" id="player-card-panel"></div>
+      <div class="section-heading"><div><p class="eyebrow">YOUR RECORD</p><h2>Player milestones</h2></div></div>
+      <div class="milestone-grid">
+        <div class="milestone-card"><span>Best score</span><strong id="stats-best">0</strong></div>
+        <div class="milestone-card"><span>Days active</span><strong id="stats-days">0</strong></div>
+        <div class="milestone-card"><span>Games in library</span><strong id="stats-library">0</strong></div>
+      </div>
+    </section>
+
+    <section class="page" id="player">
+      <div class="welcome"><p class="eyebrow">YOUR IDENTITY / HOPE MEMBER</p><h1>Player profile.</h1><p class="subtitle">A little home for your gaming identity and milestones.</p></div>
+      <div class="profile-hero" id="hope-profile-hero">
+        <div class="profile-banner" id="profile-banner"></div>
+        <div class="profile-hero-content">
+          <div class="profile-hero-avatar" id="profile-hero-avatar">🎮</div>
+          <div class="profile-hero-copy"><span class="profile-kicker">HOPE PLAYER</span><h2 id="profile-hero-name">Player One</h2><p id="profile-hero-bio">Your gaming space</p><span class="profile-title-chip" id="profile-title-chip">The Wanderer</span></div>
+          <button class="secondary-btn profile-edit-action" onclick="editProfile()">Edit profile ↗</button>
+        </div>
+      </div>
+      <div class="profile-metrics" id="profile-metrics"></div>
+      <div class="section-heading"><div><p class="eyebrow">YOUR HIGHLIGHTS</p><h2>Personal milestones</h2></div><button class="text-btn" onclick="navigate('achievements')">All achievements →</button></div>
+      <div class="achievement-strip" id="profile-achievements"></div>
+      <div class="section-heading"><div><p class="eyebrow">YOUR COLLECTION</p><h2>Games in progress</h2></div><button class="text-btn" onclick="navigate('library')">Open library →</button></div>
+      <div class="game-grid" id="profile-games"></div>
+    </section>
+
+    <section class="page" id="daily">
+      <div class="welcome"><p class="eyebrow">A LITTLE SOMETHING FOR TODAY</p><h1>Daily challenge.</h1><p class="subtitle">Small steps count. Come back tomorrow for a new one.</p></div>
+      <div class="daily-card">
+        <div class="daily-orb">✦</div>
+        <div class="daily-copy"><p class="eyebrow" id="daily-date">TODAY</p><h2 id="daily-title">One more round</h2><p id="daily-description">Complete one arcade game today to unlock your daily bonus.</p></div>
+        <div class="daily-reward"><strong>+30 XP</strong><small>DAILY REWARD</small></div>
+      </div>
+      <div class="daily-progress-wrap"><div class="daily-progress-head"><span>Today's progress</span><strong id="daily-progress-label">0 / 1</strong></div><div class="progress-track"><div id="daily-progress-fill"></div></div></div>
+      <button class="primary-btn daily-claim" id="daily-claim" onclick="claimDailyReward()">Claim daily reward</button>
+      <p class="daily-note" id="daily-note">Play any arcade game to complete today's challenge.</p>
+      <div class="section-heading"><div><p class="eyebrow">KEEP YOUR STREAK ALIVE</p><h2>Your daily rhythm</h2></div></div>
+      <div class="daily-streak"><strong id="daily-streak-count">0</strong><span>daily rewards claimed</span><small>There is no pressure to play every day. HOPE will be here when you are.</small></div>
+    </section>
+
+    
+
+    <div class="modal" id="game-modal" role="dialog" aria-modal="true" aria-label="Arcade game">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeGame()" aria-label="Close">✕</button>
+        <div id="number-game" class="game-screen">
+          <p class="eyebrow">HOPE ARCADE / 001</p><h2>Number Hunter</h2><p class="subtitle">Find the hidden number between 1 and 100.</p>
+          <input type="number" id="guess-input" placeholder="Your guess..." min="1" max="100">
+          <button class="primary-btn" onclick="checkGuess()">Submit Guess</button>
+          <p id="game-message" aria-live="polite">Ready when you are.</p><p class="attempts">Attempts: <span id="attempts">0</span></p>
+          <button class="text-btn restart-btn" onclick="startNumberGame()">New number ↻</button>
+        </div>
+        <div id="other-game" class="game-screen"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="settings-modal" role="dialog" aria-modal="true" aria-label="Settings">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeSettings()" aria-label="Close">✕</button>
+        <p class="eyebrow">PREFERENCES</p><h2>HOPE settings</h2>
+        <div class="setting-row"><div><strong>Color theme</strong><small>Choose the accent color that feels right.</small></div>
+          <span class="theme-current" id="theme-current">Violet</span></div>
+        <div class="theme-grid" id="theme-grid" aria-label="Color themes">
+          <button class="theme-swatch violet" data-theme-choice="violet" onclick="setTheme('violet')" aria-label="Violet theme"></button>
+          <button class="theme-swatch ocean" data-theme-choice="ocean" onclick="setTheme('ocean')" aria-label="Ocean theme"></button>
+          <button class="theme-swatch emerald" data-theme-choice="emerald" onclick="setTheme('emerald')" aria-label="Emerald theme"></button>
+          <button class="theme-swatch sunset" data-theme-choice="sunset" onclick="setTheme('sunset')" aria-label="Sunset theme"></button>
+          <button class="theme-swatch rose" data-theme-choice="rose" onclick="setTheme('rose')" aria-label="Rose theme"></button>
+          <button class="theme-swatch amber" data-theme-choice="amber" onclick="setTheme('amber')" aria-label="Amber theme"></button>
+        </div>
+        <div class="custom-accent-row"><label for="custom-accent">Custom accent</label><input type="color" id="custom-accent" value="#a78bfa" oninput="setCustomAccent(this.value)"></div>
+        <div class="setting-row"><div><strong>Dashboard wallpaper</strong><small>Change the atmosphere without changing your layout.</small></div></div>
+        <div class="wallpaper-grid">
+          <button class="wallpaper-option midnight selected" data-wallpaper-choice="midnight" onclick="setWallpaper('midnight')">Midnight</button>
+          <button class="wallpaper-option aurora" data-wallpaper-choice="aurora" onclick="setWallpaper('aurora')">Aurora</button>
+          <button class="wallpaper-option nebula" data-wallpaper-choice="nebula" onclick="setWallpaper('nebula')">Nebula</button>
+          <button class="wallpaper-option grid" data-wallpaper-choice="grid" onclick="setWallpaper('grid')">Grid</button>
+        </div>
+        <div class="setting-row"><div><strong>Sound effects</strong><small>Play subtle sounds for game actions.</small></div>
+          <button class="toggle-btn" id="sound-toggle" onclick="toggleSound()">ON</button></div>
+        <div class="backup-section">
+          <div><p class="eyebrow">YOUR DATA</p><strong>Backup & restore</strong><small>Keep a copy of your games, profile and progress.</small></div>
+          <div class="backup-actions"><button class="secondary-btn" onclick="exportHopeBackup()">Export backup ↓</button><button class="secondary-btn" onclick="document.getElementById('hope-import-file').click()">Import backup ↑</button><input id="hope-import-file" type="file" accept="application/json,.json" hidden onchange="importHopeBackup(event)"></div>
+          <p class="backup-note" id="backup-note" aria-live="polite"></p>
+        </div>
+        <div class="setting-row"><div><strong>Reset progress</strong><small>Clear XP, scores and completed games.</small></div>
+          <button class="danger-btn" onclick="resetProgress()">Reset</button></div>
+      </div>
+    </div>
+
+    <div class="modal" id="profile-modal" role="dialog" aria-modal="true" aria-label="Edit profile">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeProfile()" aria-label="Close">✕</button>
+        <p class="eyebrow">PLAYER SETTINGS</p><h2>Edit your profile</h2>
+        <label class="field-label" for="name-input">PLAYER NAME</label>
+        <input class="profile-input" id="name-input" maxlength="20" placeholder="Enter your name">
+        <label class="field-label" for="bio-input">PLAYER BIO</label>
+        <input class="profile-input" id="bio-input" maxlength="70" placeholder="A little about your gaming world">
+        <label class="field-label" for="player-title">PLAYER TITLE</label>
+        <select class="profile-input" id="player-title">
+          <option>The Wanderer</option><option>Arcade Rookie</option><option>Night Owl</option><option>Quest Seeker</option><option>Pixel Artist</option><option>Legend in Progress</option><option>Master Strategist</option>
+        </select>
+        <label class="field-label" for="profile-banner-color">PROFILE BANNER</label>
+        <div class="banner-color-row">
+          <button type="button" data-banner-color="#a78bfa" style="--banner-color:#a78bfa" aria-label="Violet banner"></button>
+          <button type="button" data-banner-color="#68a7d8" style="--banner-color:#68a7d8" aria-label="Blue banner"></button>
+          <button type="button" data-banner-color="#64b99a" style="--banner-color:#64b99a" aria-label="Green banner"></button>
+          <button type="button" data-banner-color="#d88b75" style="--banner-color:#d88b75" aria-label="Terracotta banner"></button>
+          <button type="button" data-banner-color="#c27fa7" style="--banner-color:#c27fa7" aria-label="Rose banner"></button>
+          <input type="color" id="profile-banner-color" value="#a78bfa" aria-label="Custom banner color">
+        </div>
+        <div class="avatar-builder">
+          <div class="avatar-builder-head"><div><label class="field-label">CUSTOM AVATAR</label><small>Build a player icon that feels like you.</small></div><div class="avatar-preview" id="avatar-preview">🎮</div></div>
+          <label class="field-label" for="avatar-face">CHARACTER</label>
+          <div class="avatar-choice-row" id="avatar-face-choices">
+            <button type="button" class="avatar-choice selected" data-avatar-face="🎮">🎮</button>
+            <button type="button" class="avatar-choice" data-avatar-face="🧑‍🚀">🧑‍🚀</button>
+            <button type="button" class="avatar-choice" data-avatar-face="🥷">🥷</button>
+            <button type="button" class="avatar-choice" data-avatar-face="👾">👾</button>
+            <button type="button" class="avatar-choice" data-avatar-face="🐺">🐺</button>
+            <button type="button" class="avatar-choice" data-avatar-face="🦊">🦊</button>
+            <button type="button" class="avatar-choice" data-avatar-face="🐱">🐱</button>
+            <button type="button" class="avatar-choice" data-avatar-face="👻">👻</button>
+            <button type="button" class="avatar-choice" data-avatar-face="🤖">🤖</button>
+            <button type="button" class="avatar-choice" data-avatar-face="🧙">🧙</button>
+          </div>
+          <label class="field-label" for="avatar-color">AVATAR COLOR</label>
+          <div class="avatar-color-row">
+            <button type="button" class="avatar-color selected" data-avatar-color="#a78bfa" style="--avatar-color:#a78bfa" aria-label="Violet"></button>
+            <button type="button" class="avatar-color" data-avatar-color="#56c7e8" style="--avatar-color:#56c7e8" aria-label="Ocean"></button>
+            <button type="button" class="avatar-color" data-avatar-color="#58d6a0" style="--avatar-color:#58d6a0" aria-label="Emerald"></button>
+            <button type="button" class="avatar-color" data-avatar-color="#ff9b70" style="--avatar-color:#ff9b70" aria-label="Sunset"></button>
+            <button type="button" class="avatar-color" data-avatar-color="#f18bb5" style="--avatar-color:#f18bb5" aria-label="Rose"></button>
+            <button type="button" class="avatar-color" data-avatar-color="#e9c46a" style="--avatar-color:#e9c46a" aria-label="Amber"></button>
+            <input type="color" id="avatar-custom-color" value="#a78bfa" aria-label="Choose custom avatar color">
+          </div>
+          <label class="field-label" for="avatar-frame">AVATAR FRAME</label>
+          <select id="avatar-frame" class="profile-input">
+            <option value="glow">Soft glow</option><option value="solid">Solid ring</option><option value="double">Double ring</option><option value="none">No frame</option>
+          </select>
+          <label class="field-label" for="avatar-badge">MINI BADGE</label>
+          <select id="avatar-badge" class="profile-input">
+            <option value="">No badge</option><option value="✦">Star ✦</option><option value="⚡">Bolt ⚡</option><option value="♥">Heart ♥</option><option value="♛">Crown ♛</option><option value="☾">Moon ☾</option>
+          </select>
+          <input type="hidden" id="avatar-input" value="🎮">
+        </div>
+        <button class="primary-btn full-btn" onclick="saveProfile()">Save changes</button>
+      </div>
+    </div>
+
+    <footer>HOPE © 2026 — A PLACE TO RESPAWN.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
